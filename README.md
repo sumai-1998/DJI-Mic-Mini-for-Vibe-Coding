@@ -22,13 +22,13 @@ Enter may send, insert a newline, or confirm an action depending on the focused 
 
 ## 1. 先配置豆包 / Configure Doubao first
 
-1. 安装并启用 **macOS 版豆包输入法**，打开语音输入设置。  
+1. 安装并启用 **macOS 版豆包输入法**，打开语音输入设置。
    Install and enable **Doubao Input Method for macOS**, then open its voice-input settings.
-2. 选择 **“免按模式”**：按一次开始，再按一次结束，无需一直按住。  
+2. 选择 **“免按模式”**：按一次开始，再按一次结束，无需一直按住。
    Choose **“免按模式”**: press once to start and again to stop, without holding the key.
-3. 将该模式的快捷键设为 **右侧 Option（⌥）**，即空格键右边的 Option 键。  
+3. 将该模式的快捷键设为 **右侧 Option（⌥）**，即空格键右边的 Option 键。
    Assign **Right Option (⌥)**, the Option key to the right of the space bar.
-4. 在输入框中手动按一次右侧 Option，确认开始录入；再按一次，确认结束。  
+4. 在输入框中手动按一次右侧 Option，确认开始录入；再按一次，确认结束。
    Test it in a text field: press Right Option once to start dictation and again to stop.
 
 **本工具默认模拟右侧 Option，不会自动修改豆包设置。** 如果仍设置为 Fn、左侧 Option 或长按录入模式，请先修改，否则麦克风按钮无法按预期控制录入。
@@ -37,13 +37,13 @@ Enter may send, insert a newline, or confirm an action depending on the focused 
 
 ## 2. 使用条件 / Requirements
 
-- **macOS 13+**；目前仅在 Apple Silicon、macOS 26.6、豆包输入法 1.0.2 上实测。  
+- **macOS 13+**；目前仅在 Apple Silicon、macOS 26.6、豆包输入法 1.0.2 上实测。
   **macOS 13+**; tested only on Apple Silicon with macOS 26.6 and Doubao Input Method 1.0.2.
-- 发射器通过 **USB 接收器**连接 Mac，在系统声音设置中选接收器为输入设备。  
+- 发射器通过 **USB 接收器**连接 Mac，在系统声音设置中选接收器为输入设备。
   Connect the transmitter through its **USB receiver** and select the receiver as the Mac's audio input.
-- 接收器 VID/PID 为 `0x2ca3:0x4011`，连接键上报 Consumer Volume Increment 事件。其他型号或固件需实测。  
+- 接收器 VID/PID 为 `0x2ca3:0x4011`，连接键上报 Consumer Volume Increment 事件。其他型号或固件需实测。
   The receiver must use VID/PID `0x2ca3:0x4011` and emit Consumer Volume Increment for the linking button. Other hardware or firmware needs verification.
-- 安装 **Xcode Command Line Tools** 以编译 Swift。  
+- 安装 **Xcode Command Line Tools** 以编译 Swift。
   Install **Xcode Command Line Tools** to compile Swift.
 
 仅通过蓝牙连接发射器未能提供所需按钮事件，不在支持范围内。
@@ -101,15 +101,15 @@ Accessibility permission must be granted by the user in System Settings.
 
 Focus a text field in your chat or coding app. Press the transmitter's linking button to start speaking, press again to stop, and Enter will be pressed 1 second later.
 
-- **固定延迟，不检测转写是否完成。** 豆包转写慢时，Enter 可能先发送。  
+- **固定延迟，不检测转写是否完成。** 豆包转写慢时，Enter 可能先发送。
   **The delay is fixed; transcription completion is not detected.** Enter may arrive before Doubao finishes processing.
-- 等待发送期间，切换到其他应用、点击鼠标、手动按 Enter/Esc 或重新开始录入，会撤销上一次待发送的 Enter。同一应用内用键盘切换输入框不一定能检测到。  
+- 等待发送期间，切换到其他应用、点击鼠标、手动按 Enter/Esc 或重新开始录入，会撤销上一次待发送的 Enter。同一应用内用键盘切换输入框不一定能检测到。
   Switching apps, clicking the mouse, manually pressing Enter/Esc, or starting a new dictation cancels the pending Enter. Keyboard-only focus changes within the same app may not be detected.
-- 外部操作豆包导致状态不同步时，可从菜单栏选择 **“重置录音状态”**。它只重置本工具，不直接停止豆包录音。  
+- 外部操作豆包导致状态不同步时，可从菜单栏选择 **“重置录音状态”**。它只重置本工具，不直接停止豆包录音。
   If external actions in Doubao cause a state mismatch, choose **“重置录音状态”** (reset recording state) from the menu. This resets the controller only; it does not directly stop Doubao.
-- 不包含电源键取消、双击/三击取消或降噪状态监听。  
+- 不包含电源键取消、双击/三击取消或降噪状态监听。
   Power-button cancellation, double/triple-click cancellation, and noise-cancellation monitoring are not included.
-- 退出 App 后，连接键恢复为右 Option 的基本映射，没有自动 Enter。接收器重新插入后，运行中的 App 最多约 15 秒重新应用映射。  
+- 退出 App 后，连接键恢复为右 Option 的基本映射，没有自动 Enter。接收器重新插入后，运行中的 App 最多约 15 秒重新应用映射。
   Quitting restores basic Right Option mapping without automatic Enter. While running, the app reapplies mapping within approximately 15 seconds after reconnecting the receiver.
 
 ## 5. 构建与验证 / Build and verification
@@ -149,6 +149,37 @@ Logs and status are stored at `~/.local/share/dji-doubao-controller/`. They cont
 移除 App、登录启动项和设备映射；诊断日志保留在上述用户目录，可自行删除。
 
 Removes the app, login launch agent, and device mappings. Diagnostic logs remain in the user directory above and can be removed manually.
+
+## 菜单栏辅助功能 / Menu-bar utilities
+
+App 运行时，屏幕顶部的 macOS 菜单栏会显示 `Mic·…`。点击它可打开辅助菜单。以下文字是当前 App 的实际中文界面名称，英文仅为说明。
+
+While the app is running, `Mic·…` appears in the macOS menu bar at the top of the screen. Click it to open the utility menu. The app currently uses the Chinese labels below; the English text explains their meaning.
+
+### 状态提示 / Status indicators
+
+| 菜单栏显示 / Label | 含义 / Meaning |
+| --- | --- |
+| `Mic·待授权` | 尚未启用按键监听，通常需要辅助功能授权。 / Button monitoring is not active; Accessibility permission is usually required. |
+| `Mic·就绪` | 已启用，等待按下麦克风连接键。 / Enabled and ready for a microphone button press. |
+| `Mic·录音中` | 本工具已发出开始录入指令。 / The controller has sent the start-dictation shortcut. |
+| `Mic·等待发送` | 已发出停止指令，正在等待 1 秒后的 Enter。 / The stop shortcut was sent; the controller is waiting to press Enter after 1 second. |
+
+这些提示反映的是本工具的内部状态，不是直接读取豆包的录音状态。若用其他方式操作豆包，显示可能不同步。
+
+These indicators reflect the controller's internal state, not a direct reading of Doubao's recording status. Actions taken outside the controller can cause a mismatch.
+
+### 菜单操作 / Menu actions
+
+| 菜单项 / Menu item | 用途 / Behavior |
+| --- | --- |
+| **启用／检查辅助功能权限** | 尝试启用按键监听；缺少权限时请求系统授权，已启用时无需重复操作。授权仍需在系统设置中完成。 / Attempts to enable button monitoring and requests Accessibility permission when needed. Permission must be granted in System Settings; no further action is needed if already enabled. |
+| **重置录音状态** | 将本工具恢复到“就绪”，同时撤销待发送的 Enter。用于状态不同步；不会直接停止或取消豆包录入。 / Resets the controller to ready and cancels any pending Enter. Use it to recover from a state mismatch; it does not stop or cancel Doubao dictation. |
+| **退出并恢复原来的单击映射** | 退出 App，并将接收器连接键恢复为右侧 Option 的基本映射。退出后没有自动 Enter。 / Quits the app and restores basic Right Option mapping for the receiver button. Automatic Enter is disabled after quitting. |
+
+日常开始、停止录入使用发射器连接键；菜单栏提供状态查看、权限处理、重置和退出。
+
+Use the transmitter's linking button for daily start/stop control. The menu bar provides status, permission handling, reset, and quit actions.
 
 ## 项目结构 / Project structure
 
